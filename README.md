@@ -89,7 +89,7 @@ codex auth
 
 ```bash
 cd <볼트 경로>/.obsidian/plugins/
-git clone https://github.com/knot-hub/codex-obsidian
+git clone https://github.com/parkjikoon-hub/codex-obsidian
 ```
 
 ---
@@ -160,9 +160,9 @@ MIT License
 
 ## 관련 프로젝트
 
-- [gemini-obsidian](https://github.com/knot-hub/gemini-obsidian) — Gemini AI 버전
+- [gemini-obsidian](https://github.com/parkjikoon-hub/gemini-obsidian) — Gemini AI 버전
 - [codexian](https://github.com/reallygood83/codexian) — 원본 오픈소스 (감사합니다!)
 
 ---
 
-Made with ❤️ by [KNOT](https://github.com/knot-hub)
+Made with ❤️ by [KNOT](https://github.com/parkjikoon-hub)
