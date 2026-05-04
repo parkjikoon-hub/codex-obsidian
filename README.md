@@ -16,7 +16,7 @@ OpenAI Codex CLI를 Obsidian 안에서 직접 사용하고, 대화 내용을 자
 | Codex CLI 연동 | ✅ | ✅ 더 안정적 |
 | 현재 노트 컨텍스트 | ✅ | ✅ |
 | 관련 노트 검색 (CLI) | 기초적 | ✅ Obsidian CLI 기반 |
-| 노트 자동 저장 | ❌ | ✅ CMDS 프론트매터 포함 |
+| 노트 자동 저장 | ❌ | ✅ KNOT 프론트매터 포함 |
 | 기획서/회의록 변환 | ❌ | ✅ 툴바 버튼 |
 | BRAT 없이 설치 | ❌ | ✅ 직접 설치 가능 |
 | pencil MCP 에러 | ❌ 에러 발생 | ✅ 없음 |
@@ -30,7 +30,7 @@ OpenAI Codex CLI를 Obsidian 안에서 직접 사용하고, 대화 내용을 자
 | 💻 **Codex 채팅 사이드바** | Obsidian 안에서 Codex와 실시간 대화 |
 | 📎 **노트 컨텍스트 자동 전달** | 현재 열린 노트를 Codex에게 자동 전달 |
 | 🔍 **관련 노트 검색** | Obsidian CLI로 관련 노트를 찾아 컨텍스트에 추가 |
-| 💾 **노트 자동 생성** | 대화 내용을 CMDS 프론트매터가 포함된 노트로 저장 |
+| 💾 **노트 자동 생성** | 대화 내용을 KNOT 프론트매터가 포함된 노트로 저장 |
 | 📋 **빠른 변환 툴바** | 기획서, 회의록, 액션 아이템, 코드 생성 버튼 |
 | ⏹ **스트리밍 중지** | 생성 중 언제든지 중지 가능 |
 | ⚙️ **승인 모드** | 제안/자동/전체 자동 모드 선택 |
@@ -78,7 +78,7 @@ codex auth
 
 ```bash
 cd <볼트 경로>/.obsidian/plugins/
-git clone https://github.com/cmds-hub/codex-obsidian
+git clone https://github.com/knot-hub/codex-obsidian
 ```
 
 ---
@@ -113,7 +113,7 @@ git clone https://github.com/cmds-hub/codex-obsidian
 Obsidian CLI가 설치되어 있으면 추가 기능이 활성화됩니다:
 
 - **스마트 노트 검색**: 현재 주제와 관련된 노트를 볼트 전체에서 검색
-- **CLI 기반 노트 저장**: CMDS 프론트매터가 완벽하게 포함된 노트 생성
+- **CLI 기반 노트 저장**: KNOT 프론트매터가 완벽하게 포함된 노트 생성
 - **플러그인 리로드**: 설정에서 버튼 하나로 즉시 리로드
 
 Obsidian CLI 설치: https://help.obsidian.md/cli
@@ -149,9 +149,9 @@ MIT License
 
 ## 관련 프로젝트
 
-- [gemini-obsidian](https://github.com/cmds-hub/gemini-obsidian) — Gemini AI 버전
+- [gemini-obsidian](https://github.com/knot-hub/gemini-obsidian) — Gemini AI 버전
 - [codexian](https://github.com/reallygood83/codexian) — 원본 오픈소스 (감사합니다!)
 
 ---
 
-Made with ❤️ by [CMDS](https://github.com/cmds-hub)
+Made with ❤️ by [KNOT](https://github.com/knot-hub)

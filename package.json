@@ -4,10 +4,10 @@
   "description": "Use OpenAI Codex CLI directly inside Obsidian with smart note search and auto-save.",
   "main": "main.js",
   "keywords": ["obsidian", "obsidian-plugin", "codex", "openai", "ai", "cli"],
-  "author": "CMDS",
+  "author": "KNOT",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/cmds-hub/codex-obsidian"
+    "url": "https://github.com/knot-hub/codex-obsidian"
   }
 }

@@ -2,7 +2,7 @@
  * Codex Obsidian v1.0.0
  * OpenAI Codex CLI + Obsidian CLI(obsidian-skill) 통합 플러그인
  * codexian 오픈소스 기반으로 더 강력하게 재구성
- * GitHub: https://github.com/cmds-hub/codex-obsidian
+ * GitHub: https://github.com/knot-hub/codex-obsidian
  */
 
 const { Plugin, ItemView, Notice, PluginSettingTab, Setting, Modal } = require('obsidian');
@@ -22,7 +22,7 @@ const DEFAULT_SETTINGS = {
   autoSave: true,
   includeCurrentNote: true,
   obsidianCliEnabled: true,
-  cmdsAuthor: '',
+  knotAuthor: '',
   maxRelatedNotes: 3,
   maxTokens: 8000,
 };
@@ -56,7 +56,7 @@ class ObsidianCLI {
     return await this.run(`read file="${name}"`);
   }
 
-  // obsidian-skill 방식 — CMDS 프론트매터 포함 노트 생성
+  // obsidian-skill 방식 — KNOT 프론트매터 포함 노트 생성
   static async createNote({ name, content, folder, author, tags, type }) {
     const date = new Date().toISOString().slice(0, 10);
     const authorLine = author ? `\n  - "[[${author}]]"` : '\n  - ""';
@@ -482,17 +482,17 @@ class CodexObsidianView extends ItemView {
     const date = new Date().toISOString().slice(0, 10);
     const rawTitle = content.split('\n').find(l => l.trim())?.replace(/^#+\s*/, '').replace(/[<>:"\/\\|?*]/g, '').trim() || '새 노트';
     const fileName = `${date} ${rawTitle.slice(0, 50)}`;
-    const { saveFolder, cmdsAuthor } = this.plugin.settings;
+    const { saveFolder, knotAuthor } = this.plugin.settings;
 
     if (this.cliAvailable) {
       const ok = await ObsidianCLI.createNote({
         name: fileName, content, folder: saveFolder,
-        author: cmdsAuthor, tags: ['codex-obsidian', 'ai-generated'], type: 'note'
+        author: knotAuthor, tags: ['codex-obsidian', 'ai-generated'], type: 'note'
       });
       if (ok) { new Notice(`✅ 노트 저장 완료 (CLI): ${fileName}`); return; }
     }
 
-    const frontmatter = `---\ntype: note\naliases: []\ndescription: "AI-generated note from Codex Obsidian."\nauthor:\n  - "${cmdsAuthor || ''}"\ndate created: ${date}\ndate modified: ${date}\ntags:\n  - codex-obsidian\n  - ai-generated\n---\n\n`;
+    const frontmatter = `---\ntype: note\naliases: []\ndescription: "AI-generated note from Codex Obsidian."\nauthor:\n  - "${knotAuthor || ''}"\ndate created: ${date}\ndate modified: ${date}\ntags:\n  - codex-obsidian\n  - ai-generated\n---\n\n`;
     try {
       if (!this.app.vault.getAbstractFileByPath(saveFolder)) await this.app.vault.createFolder(saveFolder);
       const p = `${saveFolder}/${fileName}.md`;
@@ -548,8 +548,8 @@ class CodexObsidianSettings extends PluginSettingTab {
         .onChange(async v => { this.plugin.settings.saveFolder = v || 'Codex Notes'; await this.plugin.saveSettings(); }));
 
     new Setting(containerEl).setName('작성자 이름').setDesc('노트 프론트매터 author 필드')
-      .addText(t => t.setPlaceholder('홍길동').setValue(this.plugin.settings.cmdsAuthor)
-        .onChange(async v => { this.plugin.settings.cmdsAuthor = v; await this.plugin.saveSettings(); }));
+      .addText(t => t.setPlaceholder('홍길동').setValue(this.plugin.settings.knotAuthor)
+        .onChange(async v => { this.plugin.settings.knotAuthor = v; await this.plugin.saveSettings(); }));
 
     new Setting(containerEl).setName('현재 노트 컨텍스트').setDesc('열린 노트를 Codex에 자동 전달')
       .addToggle(t => t.setValue(this.plugin.settings.includeCurrentNote)
