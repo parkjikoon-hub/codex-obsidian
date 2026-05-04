@@ -9,6 +9,17 @@ OpenAI Codex CLI를 Obsidian 안에서 직접 사용하고, 대화 내용을 자
 
 ---
 
+## KNOT란?
+
+> **K**now · **N**ote · **O**utput · **T**ransform
+
+지식을 **알고(Know)** → **기록하고(Note)** → **산출하고(Output)** → **변환한다(Transform)**
+
+KNOT는 단순한 노트 도구가 아닌, 지식이 행동으로 이어지는 흐름을 만드는 플러그인 생태계입니다.
+매듭(Knot)처럼 흩어진 생각과 대화를 단단하게 엮어 하나의 지식으로 만들어줍니다.
+
+---
+
 ## codexian과의 차이점
 
 | 기능 | codexian | Codex Obsidian |
