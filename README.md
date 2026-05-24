@@ -1,9 +1,8 @@
 # Codex Obsidian
 
-Obsidian 안에서 OpenAI GPT와 대화하고, 노트를 분석·저장하는 KNOT 플러그인입니다.  
-[codexian](https://github.com/reallygood83/codexian) 오픈소스를 기반으로 KNOT 생태계에 맞게 확장했습니다.
+Obsidian 안에서 OpenAI GPT와 대화하고, 노트를 분석·저장하는 KNOT 플러그인입니다.
 
-![version](https://img.shields.io/badge/version-1.1.0-blue)
+![version](https://img.shields.io/badge/version-1.3.0-blue)
 ![obsidian](https://img.shields.io/badge/Obsidian-1.0.0+-purple)
 ![license](https://img.shields.io/badge/license-MIT-green)
 
@@ -25,15 +24,17 @@ KNOT는 단순한 노트 도구가 아닌, 지식이 행동으로 이어지는 �
 | 기능 | 설명 |
 |------|------|
 | 💬 **GPT 채팅 사이드바** | Obsidian 오른쪽 패널에서 GPT와 실시간 대화 |
-| 🗺️ **Memory Map** | BM25 알고리즘으로 관련 노트를 로컬에서 탐색 (API 비용 0원) |
 | 📌 **핀 노트 영구 저장** | 재시작 후에도 핀 고정 노트 유지 |
 | ⚡ **슬래시(/) 커맨드** | `/분석` `/코드` `/기획서` 등 입력창에서 빠른 명령 실행 |
 | ⏱️ **작업 타임라인** | AI 응답 중 진행 단계 실시간 표시 |
-| 📎 **노트 컨텍스트 자동 전달** | 현재 열린 노트를 GPT에게 자동 전달 |
+| 📄 **노트 컨텍스트 토글** | 현재 열린 노트를 GPT에게 전달 (버튼으로 켜기/끄기) |
+| 🌐 **웹 검색 토글** | 실시간 웹 검색으로 최신 정보 활용 (버튼으로 켜기/끄기) |
 | 💾 **노트 자동 생성** | 대화 내용을 KNOT 프론트매터가 포함된 노트로 저장 |
 | 🧠 **Reasoning Effort** | Minimum / Low / Medium / High / Ultra High 사고 강도 선택 |
-| ⏹ **스트리밍 중지** | 생성 중 언제든지 중지 가능 |
-| 💻 **Codex CLI 연동** | Codex CLI 설치 시 로컬 에이전트로 동작 (선택 사항) |
+| 🔄 **재생성** | AI 응답이 마음에 안 들면 같은 질문으로 다시 생성 |
+| ✏️ **메시지 편집** | 이전에 보낸 메시지를 수정하면 그 이후 대화 자동 재시작 |
+| ⏹️ **중단 후 텍스트 보존** | Esc로 중단해도 받은 내용은 저장됨 |
+| 📏 **히스토리 자동 관리** | 대화가 길어지면 오래된 내용을 자동으로 정리해 토큰 초과 방지 |
 
 ---
 
@@ -54,17 +55,6 @@ KNOT는 단순한 노트 도구가 아닌, 지식이 행동으로 이어지는 �
 
 ---
 
-## Memory Map 사용법
-
-1. 패널 상단 **"구축"** 클릭 → 볼트 전체 노트 색인 생성
-2. 노트를 열고 **"관련 노트 찾기"** 클릭 → 관련 노트 최대 8개 추천
-3. 추천 결과의 📌 버튼으로 바로 핀 고정 가능
-4. **"재구축"** 으로 새 노트 추가 후 색인 갱신
-
-> Memory Map은 완전히 로컬에서 동작합니다. API 호출 없이 무료로 사용할 수 있습니다.
-
----
-
 ## 사전 준비
 
 ### OpenAI API 키 발급
@@ -73,15 +63,6 @@ KNOT는 단순한 노트 도구가 아닌, 지식이 행동으로 이어지는 �
 2. **"Create new secret key"** 클릭
 3. 발급된 키 복사 (`sk-...` 형태)
 4. 플러그인 설정에서 **OpenAI API 키** 칸에 입력
-
-### Codex CLI 설치 (선택 사항)
-
-API 키만으로도 완전히 동작합니다. Codex CLI는 로컬 에이전트 모드를 원할 때만 필요합니다.
-
-```bash
-npm install -g @openai/codex@latest
-codex --version  # 설치 확인
-```
 
 ---
 
@@ -103,11 +84,12 @@ codex --version  # 설치 확인
 
 4. **설정 → Codex Obsidian → OpenAI API 키** 입력
 
-### Git 클론으로 설치
+### KNOT Starter Vault 사용 (추천)
+
+KNOT Vault를 통째로 설치하면 3개 플러그인이 모두 포함되어 있습니다.
 
 ```bash
-cd <볼트 경로>/.obsidian/plugins/
-git clone https://github.com/parkjikoon-hub/codex-obsidian
+git clone https://github.com/parkjikoon-hub/knot-vault
 ```
 
 ---
@@ -118,18 +100,14 @@ git clone https://github.com/parkjikoon-hub/codex-obsidian
 - 왼쪽 사이드바의 **💻 터미널 아이콘** 클릭
 - 또는 `Ctrl+P` → `Codex Obsidian 패널 열기`
 
-### 메시지 전송
-- `Enter`: 메시지 전송
-- `Shift+Enter` / `Ctrl+Enter`: 줄바꿈
-- `/`: 슬래시 커맨드 메뉴 열기
+### 키보드 단축키
 
-### 승인 모드 (Codex CLI 사용 시)
-
-| 모드 | 설명 |
-|------|------|
-| 제안 모드 | 명령 실행 전 확인 요청 (안전) |
-| 자동 모드 | 안전한 명령 자동 실행 |
-| 전체 자동 | 모든 명령 자동 실행 |
+| 키 | 동작 |
+|----|------|
+| `Enter` | 메시지 전송 |
+| `Shift+Enter` / `Ctrl+Enter` | 줄바꿈 |
+| `/` | 슬래시 커맨드 메뉴 열기 |
+| `Esc` | 생성 중단 (받은 내용은 저장됨) |
 
 ### 노트 자동 저장
 채팅창에서 다음 키워드를 포함하면 자동으로 노트가 생성됩니다:
@@ -161,15 +139,6 @@ git clone https://github.com/parkjikoon-hub/codex-obsidian
 
 - API 키는 옵시디언 로컬 설정에만 저장됩니다.
 - 대화 내용은 OpenAI API로만 전송됩니다.
-- Memory Map 색인은 볼트 내 로컬 파일(`.codex-obsidian/memory/`)에 저장됩니다.
-
----
-
-## 관련 프로젝트
-
-- [gemini-obsidian](https://github.com/parkjikoon-hub/gemini-obsidian) — Gemini AI 버전
-- [claude-obsidian](https://github.com/parkjikoon-hub/claude-obsidian) — Claude AI 버전
-- [codexian](https://github.com/reallygood83/codexian) — 원본 오픈소스 (감사합니다!)
 
 ---
 
